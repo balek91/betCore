@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -63,7 +64,7 @@ namespace betCore
 
             app.UseStaticFiles();
 
-            app.UseMvc();
+            app.UseMvc(ConfigureRoute);
             //app.Run(async (context) =>
             //{
             //    await context.Response.WriteAsync("Hello World!");
@@ -75,5 +76,13 @@ namespace betCore
         //    bool trouver = false;
         //    return trouver;
         //}
+        private void ConfigureRoute(IRouteBuilder routeBuilder)
+        {
+            routeBuilder.MapRoute(
+                name:  "Default",
+                template:  "{controller}/{action}/{id?}"
+             );
+        }
     }
+
 }
